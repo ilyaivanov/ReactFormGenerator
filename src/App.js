@@ -79,7 +79,7 @@ class App extends React.Component {
                 <div className="right-half">
                     <article>
                         <h1>Form Results</h1>
-                        <MyForm options={template.options}/>
+                        <MyForm options={template.options} onSubmit={(e) => {alert('Submit called'); e.preventDefault();}}/>
                     </article>
                 </div>
             </section>);
