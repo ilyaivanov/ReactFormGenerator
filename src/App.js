@@ -3,6 +3,7 @@ import LocalStorageMixin from 'react-localstorage';
 import reactMixin from 'react-mixin';
 import MyForm from './components/Form';
 import JsonSheet from './components/JsonSheet';
+import Select from 'react-select';
 
 //statefull container
 class App extends React.Component {
@@ -10,7 +11,21 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            jsonText: "tyto"
+            templates: [
+                {
+                    name: "Login", options: [
+                    {foo: "bar", reason: "123"},
+                    {foo: "foobar", reason: "456"},
+                ]
+                },
+                {
+                    name: "Register", options: [
+                    {foo: "bar", reason: "123432"},
+                    {foo: "foobar", reason: "456423"},
+                ]
+                }
+            ],
+            selectedTemplate: "Login"
         }
     }
 
@@ -21,8 +36,14 @@ class App extends React.Component {
                 isJsonValid: e.target.value.length % 2 == 0
             });
         };
+        var setTemplate = event => this.setState({selectedTemplate: event.target.value});
 
-        var validLabel = this.state.isJsonValid? <p className="valid">Valid</p> : <p className="invalid">Invalid</p>;
+        var mapOption = o => <option key={o.name} value={o.name}>{o.name}</option>;
+
+        var validLabel = this.state.isJsonValid ? <p className="valid">Valid</p> : <p className="invalid">Invalid</p>;
+
+        var template = this.state.templates.filter(t => t.name == this.state.selectedTemplate)[0];
+        var templateText = JSON.stringify(template.options, null, '  ');
 
         return (
             <section className="container">
@@ -30,11 +51,10 @@ class App extends React.Component {
                     <article>
                         <h1>Options</h1>
                         {validLabel}
-                        <select name="" id="">
-                            <option value="">Login</option>
-                            <option value="">Register</option>
+                        <select name="" value={this.state.selectedTemplate} onChange={setTemplate}>
+                            {this.state.templates.map(mapOption)}
                         </select>
-                        <JsonSheet text={this.state.jsonText}
+                        <JsonSheet text={templateText}
                                    onTextChange={onTextChange}
                                    isJsonValid={this.state.isJsonValid}/>
                     </article>
@@ -49,6 +69,7 @@ class App extends React.Component {
     }
 }
 
-reactMixin(App.prototype, LocalStorageMixin);
+// reactMixin(App.prototype, LocalStorageMixin);
 
 export default App;
+
