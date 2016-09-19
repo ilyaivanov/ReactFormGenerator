@@ -14,8 +14,8 @@ class App extends React.Component {
             templates: [
                 {
                     name: "Login", options: [
-                    {foo: "bar", reason: "123"},
-                    {foo: "foobar", reason: "456"},
+                    {name: "Username", type:"text"},
+                    {name: "Password", type:"password"},
                 ]
                 },
                 {
@@ -61,8 +61,8 @@ class App extends React.Component {
                 </div>
                 <div className="right-half">
                     <article>
-                        <h1>Right Half</h1>
-                        <MyForm options={this.state.options}/>
+                        <h1>Form Results</h1>
+                        <MyForm options={template.options}/>
                     </article>
                 </div>
             </section>);

@@ -1,5 +1,13 @@
 import React from 'react';
-let form = () => <div><h3>Form</h3></div>;
 
+export default function form({options, onSubmit}) {
+    let mapFormElement = (option, index) => <div key={index}>
+        <label htmlFor={option.name}>{option.name}:</label>
+        <input type={option.type} id={option.name} name={option.name}/>
+    </div>;
 
-export default form;
+    return <form>
+        {options.map(mapFormElement)}
+        <input type="submit" onClick={onSubmit}/>
+    </form>;
+}

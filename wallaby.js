@@ -45,6 +45,7 @@ module.exports = function (wallaby) {
         },
         teardown: function () {
             delete global.window;
-        }
+        },
+        testFramework:"jasmine"
     };
 };
